@@ -1,0 +1,18 @@
+<config>
+    <menu>
+        <sales>
+            <children>
+                <badges translate="title" module="stbadges">
+                    <title>Badges</title>
+                    <action>stbadges/manage_badges</action>
+                    <sort_order>998</sort_order>
+                </badges>
+                <badge_rules translate="title" module="stbadges">
+                    <title>Badge Rules</title>
+                    <action>stbadges/manage_rules</action>
+                    <sort_order>1000</sort_order>
+                </badge_rules>
+            </children>
+        </sales>
+    </menu>
+</config>

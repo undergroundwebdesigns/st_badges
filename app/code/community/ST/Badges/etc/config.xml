@@ -1,0 +1,101 @@
+<config>
+    <modules>
+        <ST_Badges>
+            <version>0.1.0</version>
+        </ST_Badges>
+    </modules>
+
+    <admin>
+        <routers>
+            <stbadgesadmin>
+                <use>admin</use>
+                <args>
+                    <module>ST_Badges</module>
+                    <frontName>stbadgesadmin</frontName>
+                </args>
+            </stbadgesadmin>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <stbadges>
+                    <file>stbadges.xml</file>
+                </stbadges>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <frontend>
+        <routers>
+            <stbadges>
+                <use>standard</use>
+                <args>
+                    <module>ST_Badges</module>
+                    <frontName>stbadges</frontName>
+                </args>
+            </stbadges>
+        </routers>
+    </frontend>
+
+    <global>
+        <models>
+            <stbadges>
+                <class>ST_Badges_Model</class>
+                <resourceModel>stbadges_mysql4</resourceModel>
+            </stbadges>
+
+            <stbadges_mysql4>
+                <class>ST_Badges_Model_Mysql4</class>
+                <entities>
+                    <badge>
+                        <table>stbadges_badges</table>
+                    </badge>
+                    <rule>
+                        <table>stbadges_rules</table>
+                    </rule>
+                    <badge_customer>
+                        <table>stbadges_badges_customers</table>
+                    </badge_customer>
+                </entities>
+            </stbadges_mysql4>
+        </models>
+
+        <resources>
+            <stbadges_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </stbadges_write>
+
+            <stbadges_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </stbadges_read>
+
+            <stbadges_setup>
+                <setup>
+                    <module>ST_Badges</module>
+                    <class>ST_Badges_Model_Resource_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </stbadges_setup>
+        </resources>
+
+        <helpers>
+            <stbadges>
+                <class>ST_Badges_Helper</class>
+            </stbadges>
+        </helpers>
+
+        <blocks>
+            <stbadges>
+                <class>ST_Badges_Block</class>
+            </stbadges>
+        </blocks>
+    </global>
+</config>

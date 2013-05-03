@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <ST_Badges>
+            <active>true</active>
+            <codePool>community</codePool>
+        </ST_Badges>
+    </modules>
+</config>
