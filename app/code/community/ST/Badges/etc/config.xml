@@ -52,12 +52,9 @@
                     <badge>
                         <table>stbadges_badges</table>
                     </badge>
-                    <rule>
-                        <table>stbadges_rules</table>
-                    </rule>
-                    <badge_customer>
+                    <badgecustomer>
                         <table>stbadges_badges_customers</table>
-                    </badge_customer>
+                    </badgecustomer>
                 </entities>
             </stbadges_mysql4>
         </models>
@@ -97,5 +94,17 @@
                 <class>ST_Badges_Block</class>
             </stbadges>
         </blocks>
+
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <stbadges_award_badge>
+                        <type>singleton</type>
+                        <class>stbadges/order_observer</class>
+                        <method>awardBadge</method>
+                    </stbadges_award_badge>
+                </observers>
+            </sales_order_place_after>
+        </events>
     </global>
 </config>
