@@ -1,11 +1,11 @@
 <?php
 
 /**
-* Class required to display rules collection as a grid block in the manage grid container.
+* Class required to display badges collection as a grid block in the manage grid container.
 * 
 * @author Alex W
 */
-class ST_Badges_Block_Manage_Rules_Grid extends Mage_Adminhtml_Block_Widget_Grid 
+class ST_Badges_Block_Manage_Badges_Grid extends Mage_Adminhtml_Block_Widget_Grid 
 {
 
     /**
@@ -16,8 +16,8 @@ class ST_Badges_Block_Manage_Rules_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function __construct()
     {
         parent::__construct();        
-        $this->setId('Rules_grid');
-        $this->setDefaultSort('trigger_purchase_amount');
+        $this->setId('Badges_grid');
+        $this->setDefaultSort('title');
         $this->setDefaultDir('asc');
 
         return $this;
@@ -31,7 +31,7 @@ class ST_Badges_Block_Manage_Rules_Grid extends Mage_Adminhtml_Block_Widget_Grid
     */
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('stbadges/rule')->getCollection();
+        $collection = Mage::getModel('stbadges/badge')->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -45,20 +45,21 @@ class ST_Badges_Block_Manage_Rules_Grid extends Mage_Adminhtml_Block_Widget_Grid
     */
     protected function _prepareColumns()
     {
-        $this->addColumn('name',
+        $this->addColumn('title',
             array(
-                'header'    => Mage::helper( 'stbadges' )->__( 'Name' ),
+                'header'    => Mage::helper( 'stbadges' )->__( 'Title' ),
                 'align'     => 'left',
                 'width'     => '100px',
-                'index'     => 'name'
+                'index'     => 'title'
             )
         );       
-        $this->addColumn('trigger_purchase_amount',
+        $this->addColumn('image',
             array(
-                'header'    => Mage::helper( 'stbadges' )->__( 'Trigger Amount'),
+                'header'    => Mage::helper( 'stbadges' )->__( 'Image'),
                 'align'     => 'left',
-                'width'     => '50px',
-                'index'     => 'trigger_purchase_amount'
+                'width'     => '100px',
+                'type'      => 'image',
+                'index'     => 'icon_path'
             )
         );       
 
@@ -72,7 +73,7 @@ class ST_Badges_Block_Manage_Rules_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     array(
                         'caption'   => Mage::helper('stbadges')->__('Edit'),
                         'url'       => array('base' => '*/*/edit'),
-                        'field'     => 'rule_id',
+                        'field'     => 'badge_id',
                     )
                 ),
                 'filter'    => false,
