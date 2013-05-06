@@ -12,7 +12,7 @@ $installer->run("
         PRIMARY KEY (`badge_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    INSERT INTO `{$installer->getTable('stbadges/badge')}` (`badge_id`, `title`, `description`, `icon_path`, `trigger_purchase_amount`) VALUES (1, 'Bronze', 'Congratulations, you\'ve earned bronze status by spending more than $100!', 'stbadges/badges/bronze.jpg', 100), (2, 'Silver', 'Congratulations, you\'ve earned silver status by spending more than $500!', 'stbadges/badges/silver.jpg', 500), (3, 'Gold', 'Congratulations, you\'ve earned gold status by spending more than $1,000!', 'stbadges/badges/gold.jpg', 1000);
+    INSERT INTO `{$installer->getTable('stbadges/badge')}` (`badge_id`, `title`, `description`, `icon_path`, `trigger_purchase_amount`) VALUES (1, 'Bronze', 'Congratulations, you\'ve earned bronze status by spending more than $100!', 'stbadges/badges/bronze.png', 100), (2, 'Silver', 'Congratulations, you\'ve earned silver status by spending more than $500!', 'stbadges/badges/silver.png', 500), (3, 'Gold', 'Congratulations, you\'ve earned gold status by spending more than $1,000!', 'stbadges/badges/gold.png', 1000);
 
     CREATE TABLE `{$installer->getTable('stbadges/badgecustomer')}` (
         `badge_customer_id` INT(10) unsigned NOT NULL auto_increment,

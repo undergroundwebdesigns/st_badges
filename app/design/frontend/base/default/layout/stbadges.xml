@@ -1,0 +1,16 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/stbadges.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="right">
+            <block name="stbadges_badge_sidebar"
+                   type="stbadges/badge_sidebar"
+                   template="stbadges/badge/sidebar.phtml"
+                   as="badge"
+            />
+        </reference>
+    </default>
+</layout>

@@ -1,0 +1,19 @@
+<div class="block block-list">
+    <div class="block-title">
+        <strong>
+            <span><?php echo $this->__('Your Badges'); ?></span>
+        </strong>
+    </div>
+    <div class="block-content">
+    <?php if(!$this->isCustomerLoggedIn()): ?>
+        <p class="login"><?php echo __('You must <a href="%s">Login</a> before you can see your badges.', $this->getLoginUrl()) ?></p>
+    <?php elseif (!$this->doesCustomerHaveBadge()): ?>
+        <p class="no-badge"><?php echo __('You don\'t have any badges right now.'); ?></p>
+    <?php else: ?>
+        <p>
+            <img src="<?php echo $this->getBadgeImageUrl(); ?>" title="<?php echo __($this->getBadgeDescription()); ?>" />
+            <span><?php echo __($this->getBadgeTitle()); ?></span>
+        </p>
+    <?php endif; ?>
+    </div>
+</div>

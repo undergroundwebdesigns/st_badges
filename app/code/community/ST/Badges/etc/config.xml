@@ -37,6 +37,13 @@
                 </args>
             </stbadges>
         </routers>
+        <layout>
+            <updates>
+                <stbadges>
+                    <file>stbadges.xml</file>
+                </stbadges>
+            </updates>
+        </layout>
     </frontend>
 
     <global>

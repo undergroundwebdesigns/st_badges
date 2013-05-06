@@ -14,7 +14,7 @@ class ST_Badges_Model_Badgecustomer extends Mage_Core_Model_Abstract
     public function getCustomerBadgeId($customer_id)
     {
         $badge = $this->getCustomerBadge($customer_id);
-        return $badge->getData('badge_id');
+        return (int) $badge->getData('badge_id');
     }
 
     public function setCustomerBadgeId($customer_id, $new_badge_id)
@@ -32,7 +32,7 @@ class ST_Badges_Model_Badgecustomer extends Mage_Core_Model_Abstract
      * @params int $customer_id
      * @return ST_Badges_Model_Badgecustomer
      */
-    public function getCustomerBadge($customer_id)
+    protected function getCustomerBadge($customer_id)
     {
         $badge = $this->getCollection()
             ->addFilter('customer_id', $customer_id)->getFirstItem();

@@ -4,9 +4,4 @@
             <block type="stbadges/manage_badges" name="manage_badges" />
         </reference>
     </stbadges_manage_badges_index>
-    <stbadges_manage_rules_index>
-        <reference name="content">
-            <block type="stbadges/manage_rules" name="manage_rules" />
-        </reference>
-    </stbadges_manage_rules_index>
 </layout>
