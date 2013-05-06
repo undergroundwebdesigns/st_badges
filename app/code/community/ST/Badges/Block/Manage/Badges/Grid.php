@@ -17,7 +17,7 @@ class ST_Badges_Block_Manage_Badges_Grid extends Mage_Adminhtml_Block_Widget_Gri
     {
         parent::__construct();        
         $this->setId('Badges_grid');
-        $this->setDefaultSort('title');
+        $this->setDefaultSort('trigger_purchase_amount');
         $this->setDefaultDir('asc');
 
         return $this;
@@ -62,6 +62,15 @@ class ST_Badges_Block_Manage_Badges_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'index'     => 'icon_path'
             )
         );       
+
+        $this->addColumn('trigger_purchase_amount',
+            array(
+                'header'    => Mage::helper('stbadges')->__( 'Trigger Purchase Amount'),
+                'align'     => 'right',
+                'index'     => 'trigger_purchase_amount',
+                'width'     => '100px',
+            )
+        );
 
         $this->addColumn('action',
             array(
