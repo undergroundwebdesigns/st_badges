@@ -17,14 +17,14 @@ class ST_Badges_Manage_BadgesController extends Mage_Adminhtml_Controller_Action
     public function editAction()
     {
         $this->loadLayout();
-        $this->_addContent($this->getLayout()->createBlock('stbadges/adminhtml_form_edit'))->_addLeft($this->getLayout()->createBlock('stbadges/adminhtml_form_edit_tabs'));
+        $this->_addContent($this->getLayout()->createBlock('stbadges/manage_form_edit'))->_addLeft($this->getLayout()->createBlock('stbadges/manage_form_edit_tabs'));
         $this->renderLayout();
     }
 
     public function newAction()
     {
         $this->loadLayout();
-        $this->_addContent($this->getLayout()->createBlock('stbadges/adminhtml_form_edit'))->_addLeft($this->getLayout()->createBlock('stbadges/adminhtml_form_edit_tabs'));
+        $this->_addContent($this->getLayout()->createBlock('stbadges/manage_form_edit'))->_addLeft($this->getLayout()->createBlock('stbadges/manage_form_edit_tabs'));
         $this->renderLayout();
         #$this->_forward('edit'); In theory should be able to use this to keep things DRY, but it's 404ing on me.
     }

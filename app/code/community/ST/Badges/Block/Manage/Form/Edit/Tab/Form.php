@@ -1,5 +1,5 @@
 <?php
-class ST_Badges_Block_Adminhtml_Form_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+class ST_Badges_Block_Manage_Form_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
@@ -42,11 +42,5 @@ class ST_Badges_Block_Adminhtml_Form_Edit_Tab_Form extends Mage_Adminhtml_Block_
         $this->setForm($form);
 
         return parent::_prepareForm();
-    }
-
-    protected function _initFormValues()
-    {
-        
-        return parent::_initFormValues();
     }
 }
