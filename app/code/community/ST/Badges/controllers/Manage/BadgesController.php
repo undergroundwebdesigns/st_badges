@@ -130,4 +130,12 @@ class ST_Badges_Manage_BadgesController extends Mage_Adminhtml_Controller_Action
             }
         }
     }
+
+    protected function _isAllowed()
+    {
+        if ($this->getRequest()->getActionName() == 'delete') {
+            return Mage::getSingleton('admin/session')->isAllowed('badges/delete');
+        }
+        return Mage::getSingleton('admin/session')->isAllowed('badges');
+    }
 }

@@ -16,6 +16,10 @@ class ST_Badges_Block_Manage_Form_Edit extends Mage_Adminhtml_Block_Widget_Form_
 
         $this->_updateButton('save', 'label', Mage::helper('stbadges')->__('Save Badge'));
         $this->_updateButton('delete', 'label', Mage::helper('stbadges')->__('Delete Badge'));
+
+        if (!Mage::getSingleton('admin/session')->isAllowed('badges/delete')) {
+            $this->_removeButton('delete');
+        }
     }
 
     public function getHeaderText()
