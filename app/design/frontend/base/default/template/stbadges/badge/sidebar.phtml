@@ -1,4 +1,4 @@
-<div class="block block-list">
+<div class="block block-list stbadges">
     <div class="block-title">
         <strong>
             <span><?php echo $this->__('Your Badges'); ?></span>
@@ -10,10 +10,10 @@
     <?php elseif (!$this->doesCustomerHaveBadge()): ?>
         <p class="no-badge"><?php echo __('You don\'t have any badges right now.'); ?></p>
     <?php else: ?>
-        <p>
+        <figure>
             <img src="<?php echo $this->getBadgeImageUrl(); ?>" title="<?php echo __($this->getBadgeDescription()); ?>" />
-            <span><?php echo __($this->getBadgeTitle()); ?></span>
-        </p>
+            <figcaption><?php echo __($this->getBadgeTitle()); ?></figcaption>
+        </figure>
     <?php endif; ?>
     </div>
 </div>
