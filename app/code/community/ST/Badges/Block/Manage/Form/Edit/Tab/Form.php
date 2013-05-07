@@ -4,7 +4,7 @@ class ST_Badges_Block_Manage_Form_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $model = Mage::getModel('stbadges/badge')->load($this->getRequest()->getParam('badge_id'));
+        $model = Mage::registry('badge');
         $data = $model->getData();
         
         $fieldset = $form->addFieldset('form_form', array('legend' => Mage::helper('stbadges')->__('Badge Information')));

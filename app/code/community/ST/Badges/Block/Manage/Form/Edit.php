@@ -7,15 +7,23 @@ class ST_Badges_Block_Manage_Form_Edit extends Mage_Adminhtml_Block_Widget_Form_
 {
     public function __construct()
     {
-        parent::__construct();
 
-        $this->_ojectId = 'badge_id';
+        $this->_objectId = 'badge_id';
         $this->_blockGroup = 'stbadges';
         $this->_controller = 'manage_form';
+
+        parent::__construct();
+
+        $this->_updateButton('save', 'label', Mage::helper('stbadges')->__('Save Badge'));
+        $this->_updateButton('delete', 'label', Mage::helper('stbadges')->__('Delete Badge'));
     }
 
     public function getHeaderText()
     {
-        return Mage::Helper('stbadges')->__('Edit Loyalty Badges');
+        if (Mage::registry('badge')->getId()) {
+            return Mage::Helper('stbadges')->__('Edit %s Badges', $this->htmlEscape(Mage::registry('badge')->getTitle()));
+        } else {
+            return Mage::Helper('stbadges')->__('Create a New Loyalty Badge');
+        }
     }
 }

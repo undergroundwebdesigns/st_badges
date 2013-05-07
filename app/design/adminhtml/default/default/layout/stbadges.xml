@@ -4,4 +4,18 @@
             <block type="stbadges/manage_badges" name="manage_badges" />
         </reference>
     </stbadges_manage_badges_index>
+    <stbadges_manage_badges_new>
+        <update handle="stbadges_manage_badges_forms" />
+    </stbadges_manage_badges_new>
+    <stbadges_manage_badges_edit>
+        <update handle="stbadges_manage_badges_forms" />
+    </stbadges_manage_badges_edit>
+    <stbadges_manage_badges_forms>
+        <reference name="content">
+            <block type="stbadges/manage_form_edit" name="manage_form_edit" />
+        </reference>
+        <reference name="left">
+            <block type="stbadges/manage_form_edit_tabs" name="manage_form_edit_tabs" />
+        </reference>
+    </stbadges_manage_badges_forms>
 </layout>

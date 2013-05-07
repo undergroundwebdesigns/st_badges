@@ -7,7 +7,7 @@ class ST_Badges_Block_Manage_Form_Edit_Tabs extends Mage_Adminhtml_Block_Widget_
         parent::__construct();
         $this->setId('form_tabs');
         $this->setDestElementId('edit_form');
-        $this->setTtiel(Mage::helper('stbadges')->__('Loyalty Badges'));
+        $this->setTitle(Mage::helper('stbadges')->__('Loyalty Badges'));
     }
 
     protected function _beforeToHtml()

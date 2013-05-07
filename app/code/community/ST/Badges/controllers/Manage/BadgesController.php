@@ -10,31 +10,59 @@ class ST_Badges_Manage_BadgesController extends Mage_Adminhtml_Controller_Action
 
     public function indexAction() 
     {
+        $this->_title($this->__("Loyalty Badges"));
         $this->loadLayout();
         $this->renderLayout();
     }
 
     public function editAction()
     {
+        $this->_title($this->__("Loyalty Badges"));
+
+        $id = $this->getRequest()->getParam('badge_id');
+        $model = Mage::getModel('stbadges/badge');
+
+        if ($id) {
+            $model->load($id);
+            if (! $model->getId()) {
+                Mage::getSingleton('adminhtml/session')->addError($this->__('This badge no longer exists.'));
+                $this->_redirect('*/*/');
+                return;
+            }
+        }
+
+        $this->_title( $model->getId() ? $model->getTitle() : $this->__('New Badge'));
+
+        // Restore data saved in session, in case of errors while completing the form.
+        $data = Mage::getSingleton('adminhtml/session')->getUserData(true);
+        if (!empty($data)) {
+            $model->addData($data);
+        }
+
+        Mage::register('badge', $model);
+
         $this->loadLayout();
-        $this->_addContent($this->getLayout()->createBlock('stbadges/manage_form_edit'))->_addLeft($this->getLayout()->createBlock('stbadges/manage_form_edit_tabs'));
         $this->renderLayout();
     }
 
     public function newAction()
     {
-        $this->loadLayout();
-        $this->_addContent($this->getLayout()->createBlock('stbadges/manage_form_edit'))->_addLeft($this->getLayout()->createBlock('stbadges/manage_form_edit_tabs'));
-        $this->renderLayout();
-        #$this->_forward('edit'); In theory should be able to use this to keep things DRY, but it's 404ing on me.
+        return $this->editAction();
     }
 
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost())
         {
-            try 
-            {
+            $id = $this->getRequest()->getParam('badge_id');
+            $model = Mage::getModel('stbadges/badge')->load($id);
+            if (!$model->getId() && $id) {
+               Mage::getSingleton('adminhtml/session')->addError($this->__('This badge no longer exists.'));
+               $this->redirect('*/*/');
+               return;
+            }
+
+            try {
                 if(isset($_FILES['icon_path']['name']) AND (file_exists($_FILES['icon_path']['tmp_name'])))
                 {
                     $uploader = new Varien_File_Uploader('icon_path');
@@ -48,37 +76,58 @@ class ST_Badges_Manage_BadgesController extends Mage_Adminhtml_Controller_Action
 
                     $uploader->save($path, $_FILES['icon_path']['name']);
 
-                    $data['icon_path'] = $_FILES['icon_path']['name'];
+                    $data['icon_path'] = $this->_base_icon_path.$_FILES['icon_path']['name'];
+                } else {
+                    unset($data['icon_path']); // If no file uploaded leave image as-is.
                 }
-                else
-                {
-                    if (isset($data['icon_path']['delete']) && $data['icon_path']['delete'] == 1)
-                    {
-                        $data['icon_path'] = '';
-                    }
-                    else
-                    {
-                        unset($data['icon_path']);
-                    }
+            } catch(Exception $e) {
+                Mage::getSingleton('adminhtml/sessio')->addError($this->__('Error uploading badge icon.'));
+                Mage::getSingleton('adminhtml/sesion')->setSTBadgeData($data);
+                $this->_redirect('*/*/edit', array('badge_id' => $model->getBadgeId()));
+                return;
+            }
+
+            $model->addData($data);
+
+            $result = $model->validate();
+            if (is_array($result)) {
+                Mage::getSingleton('adminhtml/session')->setSTBadgeData($data);
+                foreach($result as $message) {
+                    Mage::getSingleton('adminhtml/session')->addError($message);
                 }
-                
-                $badge = Mage::getModel('stbadges/badge')->load($this->getRequest()->getParam('badge_id'));
-                $badge->setTitle($data['title']);
-                $badge->setDescription($data['description']);
-                $badge->setTriggerPurchaseAmount($data['trigger_purchase_amount']);
-                if (isset($data['icon_path']))
-                {
-                    $badge->setIconPath($this->_base_icon_path.$data['icon_path']);
-                }
-                $badge->save();
+                $this->redirect('*/*/edit', array('_current' => true));
+                return $this;
+            }
+            try { 
+                $model->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Badge Saved'));
-            }
-            catch(Exception $e)
-            {
+                Mage::getSingleton('adminhtml/session')->setSTBadgeData(false);
+                $this->_redirect('*/*/');
+                return;
+            } catch(Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('Error saving badge.')); 
-                Mage::logException($e); 
+                Mage::getSingleton('adminhtml/session')->setSTBadgeData($data);
+                $this->_redirect('*/*/edit', array('badge_id' => $model->getBadgeId()));
+                return;
             }
-            $this->_redirect('*/*/');
+        }
+    }
+
+    public function deleteAction()
+    {
+        if ($id = $this->getRequest()->getParam('badge_id')) {
+            try {
+                $model = Mage::getModel('stbadges/badge');
+                $model->setId($id);
+                $model->delete();
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Badge deleted.'));
+                $this->_redirect('*/*/');
+                return;
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('badge_id' => $id));
+                return;
+            }
         }
     }
 }
