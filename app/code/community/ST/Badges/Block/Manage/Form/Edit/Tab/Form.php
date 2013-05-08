@@ -37,7 +37,7 @@ class ST_Badges_Block_Manage_Form_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
             'name'          => 'icon_path',
         ));
 
-        $data['icon_path'] = isset($data['icon_path']) ? Mage::getBaseUrl(Mage_Core_Model_store::URL_TYPE_MEDIA).$data['icon_path'] : null;
+        $data['icon_path'] = isset($data['icon_path']) ? Mage::getBaseUrl(Mage_Core_Model_store::URL_TYPE_MEDIA) . $data['icon_path'] : null;
         $form->setValues($data);
         $this->setForm($form);
 

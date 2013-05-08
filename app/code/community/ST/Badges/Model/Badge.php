@@ -30,16 +30,16 @@ class ST_Badges_Model_Badge extends Mage_Core_Model_Abstract
         return $errors;
     }
 
-    public function getBadgeIdByRules($target_amount_spent)
+    public function getBadgeByAmountSpent($targetAmountSpent)
     {
-        $badge_rules = $this->getCollection()
+        $badgeRules = $this->getCollection()
             ->setOrder('trigger_purchase_amount', 'DESC');
             
-        foreach($badge_rules as $rule)
+        foreach($badgeRules as $rule)
         {
-            if ($target_amount_spent >= $rule->getData('trigger_purchase_amount')) 
+            if ($targetAmountSpent >= $rule->getTriggerPurchaseAmount()) 
             {
-                return $rule->getData('badge_id');
+                return $rule->getBadgeId();
             }
         }
 

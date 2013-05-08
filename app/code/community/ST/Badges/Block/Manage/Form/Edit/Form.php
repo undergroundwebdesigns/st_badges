@@ -4,12 +4,13 @@ class ST_Badges_Block_Manage_Form_Edit_Form extends Mage_Adminhtml_Block_Widget_
 {
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array(
-                                        'id' => 'edit_form',
-                                        'action' => $this->getUrl('*/*/save', array('badge_id' => $this->getRequest()->getParam('badge_id'))),
-                                        'method' => 'post',
-                                        'enctype' => 'multipart/form-data'
-                                    )
+        $form = new Varien_Data_Form(
+            array(
+                'id' => 'edit_form',
+                'action' => $this->getUrl('*/*/save', array('badge_id' => $this->getRequest()->getParam('badge_id'))),
+                'method' => 'post',
+                'enctype' => 'multipart/form-data'
+            )
         );
 
         $form->setUseContainer(true);

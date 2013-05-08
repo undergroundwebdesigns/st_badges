@@ -5,7 +5,8 @@
  * @author Alex W
  */
 
-class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
+class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template 
+{
     /**
      * @var Object $_badge, contains a local copy of the badge the customer has, or null if they have no badge.
      */
@@ -19,8 +20,7 @@ class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
     {
         if ($this->isCustomerLoggedIn())
         {
-            $customerId = $this->getCustomerId();
-            $this->_badge = $this->_retrieveCustomerBadge($customerId);
+            $this->_badge = $this->_retrieveCustomerBadge();
         }
 
         return parent::_prepareLayout();
@@ -32,9 +32,9 @@ class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
      * @param int $customerId
      * @return ST_Badges_Model_Badge
      */
-    protected function _retrieveCustomerBadge($customerId)
+    protected function _retrieveCustomerBadge()
     {
-        $badge_id = Mage::getModel('stbadges/badgecustomer')->getCustomerBadgeId($customerId);
+        $badge_id = Mage::getModel('stbadges/customer')->load($this->getCustomerId())->getBadgeId();
         return Mage::getModel('stbadges/badge')->load($badge_id);
     }
 
@@ -63,7 +63,7 @@ class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
      */
     public function doesCustomerHaveBadge()
     {
-        return ($this->_badge && $this->_badge->getData('badge_id') != null);
+        return ($this->_badge && $this->_badge->getBadgeId() != null);
     }
 
     /**
@@ -72,7 +72,7 @@ class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
      */
     public function getBadgeTitle()
     {
-        return $this->_badge->getData('title');
+        return $this->_badge->getTitle();
     } 
 
     /**
@@ -81,7 +81,7 @@ class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
      */
     public function getBadgeDescription()
     {
-        return $this->_badge->getData('description');
+        return $this->_badge->getDescription();
     }
 
     /**
@@ -90,7 +90,7 @@ class ST_Badges_Block_Badge_Sidebar extends Mage_Core_Block_Template {
      */
     public function getBadgeImageUrl()
     {
-        return Mage::getBaseUrl(Mage_Core_Model_store::URL_TYPE_MEDIA).$this->_badge->getData('icon_path');
+        return Mage::getBaseUrl(Mage_Core_Model_store::URL_TYPE_MEDIA).$this->_badge->getIconPath();
     }
 
     /**

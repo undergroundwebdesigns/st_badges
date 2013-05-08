@@ -2,8 +2,6 @@
 
 /**
 * Class required to display badges collection as a grid block in the manage grid container.
-* 
-* @author Alex W
 */
 class ST_Badges_Block_Manage_Badges_Grid extends Mage_Adminhtml_Block_Widget_Grid 
 {

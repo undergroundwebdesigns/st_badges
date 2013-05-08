@@ -16,21 +16,14 @@ class ST_Badges_Model_Order_Observer extends Varien_Object {
     {
         try {
             $customer = $this->getCustomer($observer);
-            $customer_id = $customer->getId();
-            $order_totals = Mage::getModel('sales/order')->getCollection()
-            //    ->addAttributeToFilter('status', Mage_Sales_Model_Order::STATE_COMPLETE)
-                ->addAttributeToFilter('customer_id', $customer_id)
-                ->getColumnValues('grand_total');
 
-            $grand_total = array_sum($order_totals);
+            $existingBadgeId = $customer->getBadgeId();
 
-            $existing_badge_id = Mage::getModel('stbadges/badgecustomer')->getCustomerBadgeId($customer_id);
+            $newBadgeId = Mage::getModel('stbadges/badge')->getBadgeByAmountSpent($customer->getPurchasesGrandTotal());
 
-            $new_badge_id = Mage::getModel('stbadges/badge')->getBadgeIdByRules($grand_total);
-
-            if ($new_badge_id && $new_badge_id != $existing_badge_id)
+            if ($newBadgeId && $newBadgeId != $existingBadgeId)
             {
-                Mage::getModel('stbadges/badgecustomer')->setCustomerBadgeId($customer_id, $new_badge_id);
+                $customer->setBadgeId($newBadgeId);
             }
         }
         catch (Exception $e)
@@ -51,6 +44,7 @@ class ST_Badges_Model_Order_Observer extends Varien_Object {
     protected function getCustomer($observer)
     {
         $order = $observer->getOrder();
-        return $order->getCustomer();
+        // Uses a custom sub-class of the magento customer model that I have extended with some methods to manage badges.
+        return Mage::getModel('stbadges/customer')->load($order->getCustomer()->getId());
     }
 }
